@@ -8,7 +8,7 @@ class Main {
 
   void init(){
   
-   System.out.println(Hello world);
+   System.out.println("helllllo worldddd");
     
   }
 
