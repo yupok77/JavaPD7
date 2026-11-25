@@ -7,28 +7,32 @@ class Main {
 
   void init(){
 
-    // Challenge1: Read in the file Original.txt and store it in a variable
+    
     String msg = Input.readFile("Original.txt");
     
-    // Encode the message and save to Encode.txt
+    
     String encodedMsg = encode(msg);
     Input.writeFile("Encode.txt", encodedMsg);
     print("Encoded msg: " + encodedMsg);
 
-    // Decode the encoded message and save to Decoded.txt
     encodedMsg = Input.readFile("Encode.txt");
     String decodedMsg = decode(encodedMsg);
     Input.writeFile("Decoded.txt", decodedMsg);
     print("Decoded msg: " + decodedMsg);
+
+   
+    String cycleEncodedMsg = encodeCycle(msg);
+    Input.writeFile("EncodeCycle.txt", cycleEncodedMsg);
+    print("Cycle Encoded msg: " + cycleEncodedMsg);
     
   }
 
   
   String encode(String txt){
     String bld = "";
+    int ascii = 0;
     for(int x = 0; x <= txt.length() - 1; x++){
-      char ch = txt.charAt(x);
-      int ascii = (int)ch;
+      ascii = (int)txt.charAt(x);
       ascii += 3;
       bld += (char)ascii;
     }
@@ -38,10 +42,33 @@ class Main {
   
   String decode(String txt){
     String bld = "";
+    int ascii = 0;
     for(int x = 0; x <= txt.length() - 1; x++){
-      char ch = txt.charAt(x);
-      int ascii = (int)ch;
+      ascii = (int)txt.charAt(x);
       ascii -= 3;
+      bld += (char)ascii;
+    }
+    return bld;
+  }
+
+  
+  String encodeCycle(String txt){
+    String bld = "";
+    int ascii = 0;
+
+    for(int x = 0; x <= txt.length() - 1; x++){
+      ascii = (int)txt.charAt(x);
+
+      if(x % 3 == 0){
+        ascii += 1;
+      }
+      else if(x % 3 == 1){
+        ascii += 2;
+      }
+      else{
+        ascii += 3;
+      }
+
       bld += (char)ascii;
     }
     return bld;
